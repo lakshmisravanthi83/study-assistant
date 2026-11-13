@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Assistant</title>
+    <link rel="stylesheet" href="style.css?v=2">
+<script src="script.js?v=2"></script>
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">📚</div>
+                <div>
+                    <h2>Study<span>AI</span></h2>
+                    <p>Smart Learning Assistant</p>
+                    
+                </div>
+            </div>
+            <div class="menu">
+                <button type="button" class="menu-btn active" onclick="showSection('dashboard')">🏠<span>Dashboard</span></button>
+                <button type="button" class="menu-btn" onclick="showSection('ask')">🤖<span>Ask AI</span></button>
+                <button type="button" class="menu-btn" onclick="showSection('upload')">📤<span>Upload Notes</span></button>
+                <button type="button" class="menu-btn" onclick="showSection('plan')">📅<span>Study Plan</span></button>
+                <button type="button" class="menu-btn" onclick="showSection('quiz')">🧠<span>Quiz</span></button>
+            </div>
+            <div class="sidebar-bottom">
+                <p>Available Subjects</p>
+                <div id="sidebarSubjects"><span class="subject-loading">Loading...</span></div>
+                <button type="button" class="refresh-btn" style="margin-top: 14px; width: 100%;" onclick="logout()">Log Out</button>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div>
+                    <h1 id="pageTitle">Good to see you 👋</h1>
+                    <p id="pageSubtitle">Continue your learning journey today.</p>
+                </div>
+                <button type="button" class="refresh-btn" onclick="loadSubjects()">↻ Refresh</button>
+            </header>
+
+            <section id="dashboard" class="section active">
+                <div class="welcome-card">
+                    <div>
+                        <p class="small-title">YOUR PERSONAL AI TUTOR</p>
+                        <h2>Learn smarter.<br>Study better. 🚀</h2>
+                        <p>Ask questions from your uploaded notes, generate study plans and test your knowledge.</p>
+                        <button type="button" class="primary-btn" onclick="showSection('ask')">Start Learning →</button>
+                    </div>
+                    <div class="welcome-icon">🎓</div>
+                </div>
+                <div class="stats">
+                    <div class="stat-card"><div class="stat-icon purple">📚</div><div><p>Subjects</p><h3 id="subjectCount">0</h3></div></div>
+                    <div class="stat-card"><div class="stat-icon blue">🤖</div><div><p>AI Tutor</p><h3>Ready</h3></div></div>
+                    <div class="stat-card"><div class="stat-icon green">🧠</div><div><p>Quiz</p><h3>Ready</h3></div></div>
+                </div>
+                <div class="quick-grid">
+                    <div class="feature-card" onclick="showSection('ask')"><div class="feature-icon">🤖</div><h3>Ask AI</h3><p>Ask questions and get answers from your study material.</p><span>Ask a question →</span></div>
+                    <div class="feature-card" onclick="showSection('upload')"><div class="feature-icon">📄</div><h3>Upload Notes</h3><p>Upload your PDFs and study materials to your subject.</p><span>Upload material →</span></div>
+                    <div class="feature-card" onclick="showSection('plan')"><div class="feature-icon">📅</div><h3>Study Plan</h3><p>Create a personalized plan based on your exam date.</p><span>Create plan →</span></div>
+                    <div class="feature-card" onclick="showSection('quiz')"><div class="feature-icon">🧠</div><h3>Take Quiz</h3><p>Generate questions and test your understanding.</p><span>Start quiz →</span></div>
+                </div>
+            </section>
+
+            <section id="ask" class="section">
+                <div class="section-heading"><h2>🤖 Ask AI Tutor</h2><p>Ask questions from your uploaded study material.</p></div>
+                <div class="card">
+                    <label>Select Subject</label>
+                    <select id="askSubject"><option value="">Select subject</option></select>
+                    <label>Your Question</label>
+                    <textarea id="question" placeholder="Example: Explain recursion in simple words..."></textarea>
+                    <button type="button" class="primary-btn" onclick="askAI()">Ask AI 🤖</button>
+                </div>
+                <div id="answerBox" class="answer-box hidden">
+                    <div class="answer-title"><span>🤖</span>AI Tutor</div>
+                    <div id="answer"></div>
+                </div>
+            </section>
+
+            <section id="upload" class="section">
+                <div class="section-heading"><h2>📤 Upload Study Material</h2><p>Add notes to a subject.</p></div>
+                <div class="card upload-card">
+                    <label>Subject</label>
+                    <input type="text" id="uploadSubject" placeholder="Example: Python">
+                    <label>Study Material</label>
+                    <div class="drop-area" onclick="document.getElementById('fileInput').click()">
+                        <div class="upload-icon">📄</div>
+                        <h3>Click to select a file</h3>
+                        <p>PDF, TXT and supported study materials</p>
+                        <input type="file" id="fileInput" hidden onchange="showFileName()">
+                        <div id="fileName"></div>
+                    </div>
+                    <button type="button" class="primary-btn" onclick="uploadFile()">Upload Material 📤</button>
+                    <div id="uploadMessage"></div>
+                </div>
+            </section>
+
+            <section id="plan" class="section">
+                <div class="section-heading"><h2>📅 Study Plan</h2><p>Create a study plan based on your exam date.</p></div>
+                <div class="card">
+                    <label>Subject</label>
+                    <select id="planSubject"><option value="">Select subject</option></select>
+                    <label>Exam Date</label>
+                    <input type="date" id="examDate">
+                    <button type="button" class="primary-btn" onclick="generatePlan()">Generate Study Plan 📅</button>
+                </div>
+                <div id="planResult" class="result-box hidden"></div>
+            </section>
+
+            <section id="quiz" class="section">
+                <div class="section-heading"><h2>🧠 Quiz</h2><p>Generate a quiz and test yourself.</p></div>
+                <div class="card">
+                    <label>Subject</label>
+                    <select id="quizSubject"><option value="">Select subject</option></select>
+                    <label>Topics</label>
+                    <input type="text" id="quizTopics" placeholder="Example: loops, functions, recursion">
+                    <label>Number of Questions</label>
+                    <input type="number" id="questionCount" value="5" min="1" max="20">
+                    <button type="button" class="primary-btn" onclick="generateQuiz()">Generate Quiz 🧠</button>
+                </div>
+                <div id="quizResult" class="quiz-container hidden"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

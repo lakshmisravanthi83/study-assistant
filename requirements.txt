@@ -1,0 +1,19 @@
+pypdf
+python-pptx
+python-docx
+langchain
+langchain-community
+langchain-text-splitters
+chromadb
+sentence-transformers
+fastapi
+uvicorn
+python-multipart
+sqlalchemy
+anthropic
+python-dotenv
+streamlit 
+ requests
+ pyspellchecker
+ pyjwt
+ bcryp

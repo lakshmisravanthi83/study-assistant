@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Assistant - Log In</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+
+    <div class="login-card">
+
+        <div class="login-logo">
+            <div class="logo-icon">📚</div>
+            <div>
+                <h2>Study<span>AI</span></h2>
+                <p>Smart Learning Assistant</p>
+            </div>
+        </div>
+
+        <h2 id="formTitle">Welcome back</h2>
+        <p id="formSubtitle">Log in to continue your learning journey.</p>
+
+        <div id="errorMsg" class="login-error hidden"></div>
+
+        <div id="nameField" class="hidden">
+            <label>Name</label>
+            <input type="text" id="nameInput" placeholder="Your name">
+        </div>
+
+        <label>Email</label>
+        <input type="email" id="emailInput" placeholder="you@example.com">
+
+        <label>Password</label>
+        <input type="password" id="passwordInput" placeholder="At least 6 characters">
+
+        <button type="button" class="primary-btn login-submit-btn" onclick="handleSubmit()" id="submitBtn">Log In</button>
+
+        <p class="toggle-text">
+            <span id="toggleText">Don't have an account?</span>
+            <a href="#" onclick="toggleMode(); return false;" id="toggleLink">Register</a>
+        </p>
+
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>
