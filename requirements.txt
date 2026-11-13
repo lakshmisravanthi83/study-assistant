@@ -17,3 +17,5 @@ streamlit
  pyspellchecker
  pyjwt
  bcrypt
+groq
+pysqlite3-binary
