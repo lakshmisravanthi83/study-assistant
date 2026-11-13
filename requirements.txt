@@ -16,4 +16,4 @@ streamlit
  requests
  pyspellchecker
  pyjwt
- bcryp
+ bcrypt
